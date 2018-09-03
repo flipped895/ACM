@@ -2,7 +2,7 @@
 #include<cstdio>
 #include<iostream>
 using namespace std;
-int dp[222][222];
+int dp[222][222];//dp[i][j]表示
 char str1[222],str2[222],str3[411];
 int main()
 {
@@ -11,7 +11,7 @@ int main()
     for(int sett=1;sett<=t;sett++)
     {
         scanf("%s%s%s",str1+1,str2+1,str3+1);
-        str1[0]=str2[0]=str3[0]='0';//如果没有strlen函数测不出长度!!!
+        str1[0]=str2[0]=str3[0]='0';//如果没有strlen函数测不出长度!!! 表示A前 i 为 和B 前j 位是否可以组成 C的前i+j位
         memset(dp,0,sizeof(dp));
         int length1,length2;
         length1=strlen(str1)-1;

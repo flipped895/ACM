@@ -1,0 +1,39 @@
+#include <iostream>
+#include<cstdio>
+#include<cstring>
+using namespace std;
+char graph[11][11],flag[10];
+int n,k,ans;
+void dfs(int row,int num)//row表当前行,num表此次调用要放第num个棋子
+{
+    if(num >= k)//如果已经安排好k个棋子(num == k时,因为num从0开始)
+    {
+        ans++;
+        return;
+    }
+    if(row == n)//搜完最后一行
+        return;
+    for(int i=0; i<n; i++)
+    {
+        if(graph[row][i]=='#'&&flag[i] == 0)//如果当前位置(row,i)是棋盘区域,并且当前列是可取的(没有被标记),将第num个棋子放进去
+        {
+            flag[i]=1;//在此次深搜中该列不再可用
+            dfs(row+1,num+1);//放第num+1个棋子,搜下一行
+            flag[i]=0;//将此次深搜的标记去掉
+        }
+    }
+    dfs(row+1,num);//dfs(row+1,1(划重点))//从第row+1行开始放,
+}
+int main()
+{
+    while(~scanf("%d%d",&n,&k)&&(n!=-1&&k!=-1))
+    {
+        memset(flag,0,sizeof(flag));
+        for(int i=0;i<n;i++)
+            cin>>graph[i];
+        ans = 0;
+        dfs(0,0);
+        cout<<ans<<endl;
+    }
+    return 0;
+}
